@@ -18,7 +18,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(9)
+    input = cms.untracked.int32(1)
 )
 
 # Input source
@@ -97,7 +97,7 @@ process.stage1Raw.txBlockLength   = cms.untracked.vint32(
 import EventFilter.L1TRawToDigi.l1tRawToDigi_cfi
 process.l1tDigis = EventFilter.L1TRawToDigi.l1tRawToDigi_cfi.l1tRawToDigi.clone()
 process.l1tDigis.FedId = cms.int32(1)
-process.l1tDigis.InputLabel = cms.InputTag("rawData")
+process.l1tDigis.InputLabel = cms.InputTag("stage1Raw")
 
 process.l1tDigis.Unpackers = cms.vstring([ "l1t::CaloTowerUnpackerFactory",
                                            "l1t::EGammaUnpackerFactory",
@@ -146,6 +146,7 @@ process.path = cms.Path(
     # produce RAW
     process.stage1Raw
     +process.dumpRaw
+    +process.l1tDigis
 
 )
 
