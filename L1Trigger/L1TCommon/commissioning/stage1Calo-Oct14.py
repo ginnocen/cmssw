@@ -94,17 +94,17 @@ process.stage1Raw.txBlockLength   = cms.untracked.vint32(
     6,6)
 
 # raw to digi
-#import EventFilter.L1TRawToDigi.l1tRawToDigi_cfi
-#process.l1tDigis = EventFilter.L1TRawToDigi.l1tRawToDigi_cfi.l1tRawToDigi.clone()
-#process.l1tDigis.FedId = cms.int32(2)
-#process.l1tDigis.InputLabel = cms.InputTag("rawData")
+import EventFilter.L1TRawToDigi.l1tRawToDigi_cfi
+process.l1tDigis = EventFilter.L1TRawToDigi.l1tRawToDigi_cfi.l1tRawToDigi.clone()
+process.l1tDigis.FedId = cms.int32(1)
+process.l1tDigis.InputLabel = cms.InputTag("rawData")
 
-#process.l1tDigis.Unpackers = cms.vstring([ "l1t::CaloTowerUnpackerFactory",
-#                                           "l1t::EGammaUnpackerFactory",
-#                                           "l1t::EtSumUnpackerFactory",
-#                                           "l1t::JetUnpackerFactory",
-#                                           "l1t::TauUnpackerFactory",
-#                                           "l1t::MPUnpackerFactory"])
+process.l1tDigis.Unpackers = cms.vstring([ "l1t::CaloTowerUnpackerFactory",
+                                           "l1t::EGammaUnpackerFactory",
+                                           "l1t::EtSumUnpackerFactory",
+                                           "l1t::JetUnpackerFactory",
+                                           "l1t::TauUnpackerFactory",
+                                           "l1t::MPUnpackerFactory"])
 
 ### emulator ###
 
