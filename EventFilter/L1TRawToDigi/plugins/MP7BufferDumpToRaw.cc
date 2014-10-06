@@ -376,7 +376,7 @@ MP7BufferDumpToRaw::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
       payloadInfo << ", " << (blockId&0xff) << " (" << (blockLength&0xff) << ")";
     }
 
-    if (blockLength>(int)rxData.at(iBlock).size()) {
+    if (blockLength>(int)rxData.at(iBlock).size() && packetisedData_) {
       edm::LogError("mp7") << "Read insufficient data for block " << blockId <<". Expected " << rxBlockLength_.at(iBlock) << " read " << rxData.at(iBlock).size() << " from Rx link " << iBlock << std::endl;
       continue;
     }
@@ -420,7 +420,7 @@ MP7BufferDumpToRaw::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
     payloadInfo << ", " << (blockId&0xff) << "(" << (blockLength&0xff) << ")";
 
-    if (blockLength>(int)txData.at(iBlock).size()) {
+    if (blockLength>(int)txData.at(iBlock).size() && packetisedData_) {
       edm::LogError("mp7") << "Read insufficient data for block " << blockId <<". Expected " << blockLength << " read " << txData.at(iBlock).size() << " from Tx link " << iBlock << std::endl;
       continue;
     }
