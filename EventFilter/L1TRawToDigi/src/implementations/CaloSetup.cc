@@ -28,7 +28,7 @@ namespace l1t {
             auto jet_unp = UnpackerFactory::get()->make("JetUnpacker");
 
             UnpackerMap res;
-            res[75] = jet_unp;
+            res[73] = jet_unp;
 
             return res;
          };
