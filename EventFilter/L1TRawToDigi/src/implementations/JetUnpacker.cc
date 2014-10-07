@@ -54,6 +54,7 @@ namespace l1t {
      int jetEta;
      int jetEtasign;
      int jetPhi;
+     int jetqualflag;
      
      
      for (int ijet=0;ijet<4;ijet++){
@@ -63,6 +64,7 @@ namespace l1t {
        jetEta=(jet[ijet]>>6 ) & 0x7;
        jetEtasign=(jet[ijet]>>9) & 0x1;
        jetPhi=(jet[ijet]>>10) & 0x1F;
+       jetqualflag=(jet[ijet]>>15) & 0x1;
        
        std::cout<<"=================="<<std::endl;
        std::cout<<"jet number ="<<ijet<<std::endl;
@@ -70,12 +72,14 @@ namespace l1t {
        std::cout<<"jetEta ="<<std::hex<<jetEta<<std::endl;
        std::cout<<"jetEtasign ="<<std::hex<<jetEtasign<<std::endl;
        std::cout<<"jetPhi ="<<std::hex<<jetPhi<<std::endl;
+       std::cout<<"jetqualflag ="<<std::hex<<jetqualflag<<std::endl;
        
        l1t::Jet jet = l1t::Jet();
        jet.setHwPt(jetPt);
        if(jetEtasign) jet.setHwEta(-1 * jetEta);
        else jet.setHwEta(jetEta);
        jet.setHwPhi(jetPhi);
+       jet.setHwQual(jetqualflag);
        std::cout << "Jet: eta " << jet.hwEta() << " phi " << jet.hwPhi() << " pT " << jet.hwPt() << " qual " << jet.hwQual();
        res_->push_back(0,jet);
        
