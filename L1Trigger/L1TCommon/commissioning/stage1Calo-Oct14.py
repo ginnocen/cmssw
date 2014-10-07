@@ -18,7 +18,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(1)
+    input = cms.untracked.int32(400)
 )
 
 # Input source
@@ -121,13 +121,13 @@ process.dumpRaw = cms.EDAnalyzer(
 )
 
 # plots from unpacker
-#import L1Trigger.L1TCalorimeter.l1tStage2CaloAnalyzer_cfi
-#process.rawPlots = L1Trigger.L1TCalorimeter.l1tStage2CaloAnalyzer_cfi.l1tStage2CaloAnalyzer.clone()
+import L1Trigger.L1TCalorimeter.l1tStage2CaloAnalyzer_cfi
+process.rawPlots = L1Trigger.L1TCalorimeter.l1tStage2CaloAnalyzer_cfi.l1tStage2CaloAnalyzer.clone()
 #process.rawPlots.towerToken = cms.InputTag("l1tDigis")
 #process.rawPlots.clusterToken = cms.InputTag("None")
 #process.rawPlots.egToken = cms.InputTag("None")
 #process.rawPlots.tauToken = cms.InputTag("None")
-#process.rawPlots.jetToken = cms.InputTag("l1tDigis")
+process.rawPlots.jetToken = cms.InputTag("l1tDigis")
 #process.rawPlots.etSumToken = cms.InputTag("l1tDigis")
 
 # plots from emulator
