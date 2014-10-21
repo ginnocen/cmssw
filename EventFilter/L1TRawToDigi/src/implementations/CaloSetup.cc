@@ -24,11 +24,31 @@ namespace l1t {
          };
 
          virtual UnpackerMap getUnpackers(int fed, int amc, int fw) override {
-
+            auto tower_unp = UnpackerFactory::get()->make("CaloTowerUnpacker");
+            auto egamma_unp = UnpackerFactory::get()->make("EGammaUnpacker");
+            auto etsum_unp = UnpackerFactory::get()->make("EtSumUnpacker");
             auto jet_unp = UnpackerFactory::get()->make("JetUnpacker");
+            auto tau_unp = UnpackerFactory::get()->make("TauUnpacker");
+
+            auto mp_unp = UnpackerFactory::get()->make("MPUnpacker");
 
             UnpackerMap res;
-            res[73] = jet_unp;
+            if (fed == 1) {
+               res[1] = egamma_unp;
+               res[3] = etsum_unp;
+               res[5] = jet_unp;
+               res[7] = tau_unp;
+            } else if (fed == 2) {
+               res[1] = mp_unp;
+               res[3] = mp_unp;
+               res[5] = mp_unp;
+               res[7] = mp_unp;
+               res[9] = mp_unp;
+               res[11] = mp_unp;
+
+               for (int link = 0; link < 144; link += 2)
+                  res[link] = tower_unp;
+            }
 
             return res;
          };
