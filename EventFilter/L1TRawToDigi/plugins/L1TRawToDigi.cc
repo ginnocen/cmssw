@@ -72,7 +72,7 @@ namespace l1t {
    {
       fedData_ = consumes<FEDRawDataCollection>(config.getParameter<edm::InputTag>("InputLabel"));
 
-      prov_ = UnpackerProviderFactory::get()->make("l1t::CaloSetup", *this);
+      prov_ = UnpackerProviderFactory::get()->make("l1t::stage1::CaloSetup", *this);
 
       slinkHeaderSize_ = config.getUntrackedParameter<int>("lenSlinkHeader", 16);
       slinkTrailerSize_ = config.getUntrackedParameter<int>("lenSlinkTrailer", 16);
