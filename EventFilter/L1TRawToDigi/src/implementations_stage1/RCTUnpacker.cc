@@ -50,21 +50,61 @@ namespace l1t {
       int unsigned i = 0;
 
       for (int bx=firstBX; bx<lastBX; bx++){
-      
+
         unsigned int crate=-1;
         bool even;
 
-
         RCTInfoFactory rctInfoFactory;
+        RCTInfo myrctinfo;
+
         rctInfoFactory.decodeCapturedLinkID(block.header().getID(), crate, counter_, even);
 
-        if (even) {}
-        else(){}
+        std::vector <uint32_t> uint;
+        uint.reserve(6);
 
-        // Loop over multiple BX and then number of jets filling jet collection
-        //uint32_t raw_data0 = block.payload()[i++];
-        //uint32_t raw_data1 = block.payload()[i++];        
+        uint.push_back(block.payload()[i++]);
+        uint.push_back(block.payload()[i++]);
+        uint.push_back(block.payload()[i++]);
+        uint.push_back(block.payload()[i++]);
+        uint.push_back(block.payload()[i++]);
+        uint.push_back(block.payload()[i++]);
 
+        if (odd) {
+
+          rctInfoFactory->produceEven(uint,myrctinfo);
+
+          for(int j = 0; j < 4; j++) {
+
+            L1CaloEmCand em = L1CaloEmCand(rctInfo.neRank[j], 
+                rctInfo.neRegn[j], 
+                rctInfo.neCard[j], 
+                rctInfo.crateID, 
+                false);
+
+            ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =
+              new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
+
+            //l1t::CaloStage1Cluster cluster;
+            CaloEmCand EmCand(*p4,
+                (int) em.rank(),
+                (int) em.regionId().ieta(),
+                (int) em.regionId().iphi(),
+                0);
+
+            res1_->push_back( bx, EmCand);
+            
+           //etc etc 
+           //etc etc 
+
+          }
+        }
+        else(){
+
+          rctInfoFactory->produceOdd(uint,myrctinfo);
+           //etc etc 
+           //etc etc 
+
+        }
       }
 
       return true;
