@@ -24,43 +24,52 @@ namespace l1t {
 
 namespace l1t {
   namespace stage1 {
-    bool
-      RCTUnpacker::unpack(const Block& block, UnpackerCollections *coll)
-      {
+    bool RCTUnpacker::unpack(const Block& block, UnpackerCollections *coll){
 
-        LogDebug("L1T") << "Block ID  = " << block.header().getID() << " size = " << block.header().getSize();
+      LogDebug("L1T") << "Block ID  = " << block.header().getID() << " size = " << block.header().getSize();
 
-        int nBX = int(ceil(block.header().getSize() / 2.)); 
+      int nBX = int(ceil(block.header().getSize() / 2.)); 
 
-        // Find the first and last BXs
-        int firstBX = -(ceil((double)nBX/2.)-1);
-        int lastBX;
-        if (nBX % 2 == 0) {
-          lastBX = ceil((double)nBX/2.)+1;
-        } else {
-          lastBX = ceil((double)nBX/2.);
-        }
+      // Find the first and last BXs
+      int firstBX = -(ceil((double)nBX/2.)-1);
+      int lastBX;
+      if (nBX % 2 == 0) {
+        lastBX = ceil((double)nBX/2.)+1;
+      } else {
+        lastBX = ceil((double)nBX/2.);
+      }
 
-        auto ems_ = static_cast<CaloCollections*>(coll)->getCTEMCands();
-        auto regs_ = static_cast<CaloCollections*>(coll)->getCTRegions();
-        ems_->setBXRange(firstBX, lastBX);
-        regs_->setBXRange(firstBX, lastBX);
+      auto ems_ = static_cast<CaloCollections*>(coll)->getCTEMCands();
+      auto regs_ = static_cast<CaloCollections*>(coll)->getCTRegions();
+      ems_->setBXRange(firstBX, lastBX);
+      regs_->setBXRange(firstBX, lastBX);
 
-        LogDebug("L1T") << "nBX = " << nBX << " first BX = " << firstBX << " lastBX = " << lastBX;
+      LogDebug("L1T") << "nBX = " << nBX << " first BX = " << firstBX << " lastBX = " << lastBX;
 
-        // Initialise index
-        int unsigned i = 0;
+      // Initialise index
+      int unsigned i = 0;
+
+      for (int bx=firstBX; bx<lastBX; bx++){
+      
+        unsigned int crate=-1;
+        bool even;
+
+
+        RCTInfoFactory rctInfoFactory;
+        rctInfoFactory.decodeCapturedLinkID(block.header().getID(), crate, counter_, even);
+
+        if (even) {}
+        else(){}
 
         // Loop over multiple BX and then number of jets filling jet collection
-        for (int bx=firstBX; bx<lastBX; bx++){
-          //uint32_t raw_data0 = block.payload()[i++];
-          //uint32_t raw_data1 = block.payload()[i++];        
-
-        }
-
-        return true;
+        //uint32_t raw_data0 = block.payload()[i++];
+        //uint32_t raw_data1 = block.payload()[i++];        
 
       }
+
+      return true;
+
+    }
   }
 }
 
