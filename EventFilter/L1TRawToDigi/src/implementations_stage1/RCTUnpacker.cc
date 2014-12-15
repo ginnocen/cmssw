@@ -120,10 +120,10 @@ namespace l1t {
             for(int k = 0; k < 2; k++) {
 
               LogDebug("L1T") <<"region="<<j<<", card="<<k<<", rgnEt="<<rctInfo.rgnEt[j][k]<<std::endl;
-              bool o = (((rctInfo.oBits >> (j * 7 + k)) && 0x1) == 0x1);
-              bool t = (((rctInfo.tBits >> (j * 7 + k)) && 0x1) == 0x1);
-              bool m = (((rctInfo.mBits >> (j * 7 + k)) && 0x1) == 0x1);
-              bool q = (((rctInfo.qBits >> (j * 7 + k)) && 0x1) == 0x1);
+              bool o = (((rctInfo.oBits >> (j * 4 + k)) && 0x1) == 0x1);
+              bool t = (((rctInfo.tBits >> (j * 4 + k)) && 0x1) == 0x1);
+              bool m = (((rctInfo.mBits >> (j * 4 + k)) && 0x1) == 0x1);
+              bool q = (((rctInfo.qBits >> (j * 4 + k)) && 0x1) == 0x1);
 
               L1CaloRegion rgn = L1CaloRegion(rctInfo.rgnEt[j][k],o,t,m,q,rctInfo.crateID,j,k);     
               ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();	     
