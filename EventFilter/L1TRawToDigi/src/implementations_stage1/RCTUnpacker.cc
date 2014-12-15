@@ -43,14 +43,12 @@ namespace l1t {
       } else {
         lastBX = ceil((double)nBX/2.);
       }
-      
-      
+    
         auto resRCTRegions_ = static_cast<CaloCollections*>(coll)->getCaloRegions();
-        resRCTRegions_->setBXRange(firstBX, lastBX);
+        resRCTRegions_->setBXRange(std::min(firstBX, resRCTRegions_->getFirstBX()), std::max(lastBX, resRCTRegions_->getLastBX()));
 
         auto resRCTEMCands_ = static_cast<CaloCollections*>(coll)->getCaloEmCands();
-        resRCTEMCands_->setBXRange(firstBX, lastBX);
-
+        resRCTEMCands_->setBXRange(std::min(firstBX, resRCTEMCands_->getFirstBX()), std::max(lastBX, resRCTEMCands_->getLastBX()));
 
       // Initialise index
       int unsigned i = 0;
