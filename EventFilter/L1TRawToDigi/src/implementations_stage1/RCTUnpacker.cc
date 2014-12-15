@@ -82,13 +82,13 @@ namespace l1t {
         rctInfoFactory.setRCTInfoCrateID(rctInfoArray, crate);
         RCTInfo rctInfo=rctInfoArray.at(0);
 
-        std::cout<<"--------------- mp7 link ="<<mp7link<<"RCT crate id="<<crate<<", RCT crate even="<<even<<std::endl;
+        LogDebug("L1T")<<"--------------- mp7 link ="<<mp7link<<"RCT crate id="<<crate<<", RCT crate even="<<even<<std::endl;
 
         if(!even) {
 
           for(int j = 0; j < 4; j++) {
 
-            std::cout <<"index="<<j<<", neRank="<<rctInfo.neRank[j]<<", neRegn="<<rctInfo.neRegn[j]<<", neCard="<<rctInfo.neCard[j]<<std::endl;
+            LogDebug("L1T") <<"index="<<j<<", neRank="<<rctInfo.neRank[j]<<", neRegn="<<rctInfo.neRegn[j]<<", neCard="<<rctInfo.neCard[j]<<std::endl;
             L1CaloEmCand em = L1CaloEmCand(rctInfo.neRank[j],rctInfo.neRegn[j],rctInfo.neCard[j],rctInfo.crateID,false);
             ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
             CaloEmCand EmCand(*p4,(int) em.rank(),(int) em.regionId().ieta(),(int) em.regionId().iphi(),0);
@@ -97,7 +97,7 @@ namespace l1t {
 
           for(int j = 0; j < 4; j++) {
 
-            std::cout <<"index="<<j<<", ieRank="<<rctInfo.ieRank[j]<<", neRegn="<<rctInfo.ieRegn[j]<<", neCard="<<rctInfo.ieCard[j]<<std::endl;
+            LogDebug("L1T") <<"index="<<j<<", ieRank="<<rctInfo.ieRank[j]<<", neRegn="<<rctInfo.ieRegn[j]<<", neCard="<<rctInfo.ieCard[j]<<std::endl;
             L1CaloEmCand em = L1CaloEmCand(rctInfo.ieRank[j],rctInfo.ieRegn[j],rctInfo.ieCard[j],rctInfo.crateID,true);
             ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
             CaloEmCand EmCand(*p4,(int) em.rank(),(int) em.regionId().ieta(),(int) em.regionId().iphi(),0);
@@ -106,7 +106,7 @@ namespace l1t {
 
           for(int j = 0; j < 2; j++) {
             for(int k = 0; k < 4; k++) {
-              std::cout <<"region HF ="<<j<<", card="<<k<<", rgnEt="<<rctInfo.hfEt[j][k]<<std::endl;
+              LogDebug("L1T") <<"region HF ="<<j<<", card="<<k<<", rgnEt="<<rctInfo.hfEt[j][k]<<std::endl;
               L1CaloRegion rgn = L1CaloRegion(rctInfo.hfEt[j][k], 0,  rctInfo.crateID , (j * 2 +  k));
               ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
               CaloRegion region(*p4,0.,0.,(int) rgn.et(),(int) rgn.id().ieta(),(int) rgn.id().iphi(),0.,0.);
@@ -119,7 +119,7 @@ namespace l1t {
           for(int j = 0; j < 7; j++) {
             for(int k = 0; k < 2; k++) {
 
-              std::cout <<"region="<<j<<", card="<<k<<", rgnEt="<<rctInfo.rgnEt[j][k]<<std::endl;
+              LogDebug("L1T") <<"region="<<j<<", card="<<k<<", rgnEt="<<rctInfo.rgnEt[j][k]<<std::endl;
               bool o = (((rctInfo.oBits >> (j * 7 + k)) && 0x1) == 0x1);
               bool t = (((rctInfo.tBits >> (j * 7 + k)) && 0x1) == 0x1);
               bool m = (((rctInfo.mBits >> (j * 7 + k)) && 0x1) == 0x1);
