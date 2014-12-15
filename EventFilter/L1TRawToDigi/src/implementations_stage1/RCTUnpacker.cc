@@ -118,7 +118,7 @@ namespace l1t {
         else{
           for(int j = 0; j < 7; j++) {
             for(int k = 0; k < 2; k++) {
-
+4
               LogDebug("L1T") <<"region="<<j<<", card="<<k<<", rgnEt="<<rctInfo.rgnEt[j][k]<<std::endl;
               bool o = (((rctInfo.oBits >> (j * 2 + k)) && 0x1) == 0x1);
               bool t = (((rctInfo.tBits >> (j * 2 + k)) && 0x1) == 0x1);
