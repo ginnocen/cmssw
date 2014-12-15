@@ -107,7 +107,7 @@ namespace l1t {
           for(int j = 0; j < 2; j++) {
             for(int k = 0; k < 4; k++) {
               LogDebug("L1T") <<"region HF ="<<j<<", card="<<k<<", rgnEt="<<rctInfo.hfEt[j][k]<<std::endl;
-              L1CaloRegion rgn = L1CaloRegion(rctInfo.hfEt[j][k], 0,  rctInfo.crateID , (j * 2 +  k));
+              L1CaloRegion rgn = L1CaloRegion(rctInfo.hfEt[j][k], 0,  rctInfo.crateID , (j * 4 +  k));
               ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
               CaloRegion region(*p4,0.,0.,(int) rgn.et(),(int) rgn.id().ieta(),(int) rgn.id().iphi(),0.,0.);
               resRCTRegions_->push_back(bx,region);
@@ -120,10 +120,10 @@ namespace l1t {
             for(int k = 0; k < 2; k++) {
 
               LogDebug("L1T") <<"region="<<j<<", card="<<k<<", rgnEt="<<rctInfo.rgnEt[j][k]<<std::endl;
-              bool o = (((rctInfo.oBits >> (j * 4 + k)) && 0x1) == 0x1);
-              bool t = (((rctInfo.tBits >> (j * 4 + k)) && 0x1) == 0x1);
-              bool m = (((rctInfo.mBits >> (j * 4 + k)) && 0x1) == 0x1);
-              bool q = (((rctInfo.qBits >> (j * 4 + k)) && 0x1) == 0x1);
+              bool o = (((rctInfo.oBits >> (j * 2 + k)) && 0x1) == 0x1);
+              bool t = (((rctInfo.tBits >> (j * 2 + k)) && 0x1) == 0x1);
+              bool m = (((rctInfo.mBits >> (j * 2 + k)) && 0x1) == 0x1);
+              bool q = (((rctInfo.qBits >> (j * 2 + k)) && 0x1) == 0x1);
 
               L1CaloRegion rgn = L1CaloRegion(rctInfo.rgnEt[j][k],o,t,m,q,rctInfo.crateID,j,k);     
               ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();	     
