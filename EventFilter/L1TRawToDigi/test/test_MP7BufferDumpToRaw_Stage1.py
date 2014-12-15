@@ -77,10 +77,12 @@ process.TFileService.fileName = cms.string('l1t.root')
 process.load('EventFilter.L1TRawToDigi.stage1MP7BufferRaw_cfi')
 process.stage1Raw.nFramesOffset    = cms.untracked.int32(0)
 process.stage1Raw.nFramesLatency   = cms.untracked.int32(90)
-process.stage1Raw.rxFile = cms.untracked.string("test/rx_summary.txt")
-process.stage1Raw.txFile = cms.untracked.string("test/tx_summary.txt")
-
-
+process.stage1Raw.rxFile = cms.untracked.string("input/dataCaptureMP7_101214_0/rx_summary.txt")
+process.stage1Raw.txFile = cms.untracked.string("input/dataCaptureMP7_101214_0/tx_summary.txt")
+#process.stage1Raw.rxFile = cms.untracked.string("input/test1_1s_ECALcstPattern_data0/rx_summary.txt")
+#process.stage1Raw.txFile = cms.untracked.string("input/test1_1s_ECALcstPattern_data0/tx_summary.txt")
+#process.stage1Raw.rxFile = cms.untracked.string("input/physicsevent/rx_summary.txt")
+#process.stage1Raw.txFile = cms.untracked.string("input/physicsevent/tx_summary.txt")
 
 # dump raw data
 process.dumpRaw = cms.EDAnalyzer( 
