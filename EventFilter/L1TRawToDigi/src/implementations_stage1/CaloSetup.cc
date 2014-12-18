@@ -52,7 +52,8 @@ namespace l1t {
             };
 
             virtual UnpackerMap getUnpackers(int fed, int amc, int fw) override {
-               auto rct_unp = UnpackerFactory::get()->make("stage1::RCTUnpacker");
+               auto rctRegion_unp = UnpackerFactory::get()->make("stage1::RCTRegionUnpacker");
+               auto rctEm_unp = UnpackerFactory::get()->make("stage1::RCTEmUnpacker");
                auto iegamma_unp = UnpackerFactory::get()->make("stage1::IsoEGammaUnpacker");
                auto niegamma_unp = UnpackerFactory::get()->make("stage1::NonIsoEGammaUnpacker");
                auto cjet_unp = UnpackerFactory::get()->make("stage1::CentralJetUnpacker");
@@ -71,10 +72,18 @@ namespace l1t {
                /* res[6] = etsum_unp; */
                /* res[7] = ring_unp; */
                /* res[8] = isotau_unp; */
-               for (int m=0;m<36;m++) res[m*2] = rct_unp;
-               res[105] = cjet_unp;
-               res[107] = fjet_unp;
-
+               for (int m=0;m<36;m++) {
+                 if(amc==4109){
+                   res[m*2] = rctRegion_unp;
+                 }
+                 else if(amc==4110){
+                   res[m*2] = rctEm_unp;
+                 }
+               }
+               if(amc==4109){
+                 res[105] = cjet_unp;
+                 res[107] = fjet_unp;
+               }
                return res;
             };
       };
