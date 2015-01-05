@@ -88,7 +88,8 @@ namespace l1t {
             LogDebug("L1T") <<"index="<<j<<", neRank="<<rctInfo.neRank[j]<<", neRegn="<<rctInfo.neRegn[j]<<", neCard="<<rctInfo.neCard[j]<<std::endl;
             L1CaloEmCand em = L1CaloEmCand(rctInfo.neRank[j],rctInfo.neRegn[j],rctInfo.neCard[j],rctInfo.crateID,false);
             ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
-            CaloEmCand EmCand(*p4,(int) em.rank(),(int) em.regionId().ieta(),(int) em.regionId().iphi(),0);
+            CaloEmCand EmCand(*p4,(int) em.rank(),(int) em.regionId().ieta(),(int) em.regionId().iphi(),(int) em.index());
+            EmCand.setHwIso((int) em.isolated());
             resRCTEMCands_->push_back(bx,EmCand);
           }
 
@@ -97,7 +98,8 @@ namespace l1t {
             LogDebug("L1T") <<"index="<<j<<", ieRank="<<rctInfo.ieRank[j]<<", neRegn="<<rctInfo.ieRegn[j]<<", neCard="<<rctInfo.ieCard[j]<<std::endl;
             L1CaloEmCand em = L1CaloEmCand(rctInfo.ieRank[j],rctInfo.ieRegn[j],rctInfo.ieCard[j],rctInfo.crateID,true);
             ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
-            CaloEmCand EmCand(*p4,(int) em.rank(),(int) em.regionId().ieta(),(int) em.regionId().iphi(),0);
+            CaloEmCand EmCand(*p4,(int) em.rank(),(int) em.regionId().ieta(),(int) em.regionId().iphi(),(int) em.index());
+            EmCand.setHwIso((int) em.isolated());
             resRCTEMCands_->push_back(bx,EmCand);
           }
         }// end if odd
