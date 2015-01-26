@@ -33,10 +33,11 @@ namespace l1t {
 namespace l1t {
   namespace stage1 {
     bool RCTEmUnpacker::unpack(const Block& block, UnpackerCollections *coll){
-
+/*
       int nBX = int(ceil(block.header().getSize() / 6.)); 
 
       // Find the first and last BXs
+
       int firstBX = -(ceil((double)nBX/2.)-1);
       int lastBX;
       if (nBX % 2 == 0) {
@@ -110,6 +111,7 @@ namespace l1t {
           }
         }// end if odd
       }// end of loop over BX
+      */
       return true;
     }
   }

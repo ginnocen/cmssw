@@ -29,6 +29,10 @@ namespace l1t {
                   PackerFactory::get()->make("stage1::EtSumPacker"),
                   PackerFactory::get()->make("stage1::HFRingPacker"),
                };
+               res[{1, 0x100D}] = {
+                  PackerFactory::get()->make("stage1::EmRegionPacker"),
+               };
+
 
                return res;
             };

@@ -18,7 +18,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1)
+    input = cms.untracked.int32(1)
 )
 
 # Input source
@@ -26,7 +26,7 @@ process.source = cms.Source(
         "PoolSource",
         # fileNames = cms.untracked.vstring("file:L1T_EDM.root")
         # fileNames = cms.untracked.vstring("file:SimL1Emulator_Stage1_SimpleHW.root")
-        fileNames = cms.untracked.vstring("file:SimL1Emulator_Stage1_PP.root")
+        fileNames = cms.untracked.vstring("file:/afs/cern.ch/user/r/richard/public/CMSSW_7_3_0_pre1-323-g9271639-emulatorOutput.root")
 )
 
 
@@ -74,6 +74,10 @@ process.l1tDigiToRaw.TauInputLabel = cms.InputTag("simCaloStage1FinalDigis", "rl
 process.l1tDigiToRaw.IsoTauInputLabel = cms.InputTag("simCaloStage1FinalDigis", "isoTaus")
 process.l1tDigiToRaw.HFBitCountsInputLabel = cms.InputTag("simCaloStage1FinalDigis", "HFBitCounts")
 process.l1tDigiToRaw.HFRingSumsInputLabel = cms.InputTag("simCaloStage1FinalDigis", "HFRingSums")
+process.l1tDigiToRaw.RegionInputLabel = cms.InputTag("simRctDigis", "")
+process.l1tDigiToRaw.EmCandInputLabel = cms.InputTag("simRctDigis", "")
+
+
 process.load("EventFilter.L1TRawToDigi.l1tRawToDigi_cfi")
 process.l1tRawToDigi.Setup = cms.string("stage1::CaloSetup")
 
