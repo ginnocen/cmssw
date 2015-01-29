@@ -102,7 +102,7 @@ namespace l1t {
           else myRCTeven=false;
           int linkMP7=-1;
           database.GetLinkMP7(mycrateRCT,myRCTeven,linkMP7);
-          res.push_back(Block(2*i, load[i])); 
+          res.push_back(Block(i, load[i])); 
           std::cout<<"index ="<<i<<",size="<<load[i].size()<<std::endl;
         }
         return res;
