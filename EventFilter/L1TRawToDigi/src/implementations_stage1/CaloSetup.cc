@@ -38,10 +38,10 @@ namespace l1t {
             };
 
             virtual void registerProducts(edm::one::EDProducerBase& prod) override {
-               prod.produces<CaloEmCandBxCollection>();
+               prod.produces<L1CaloEmCollection>();
                prod.produces<CaloSpareBxCollection>("HFBitCounts");
                prod.produces<CaloSpareBxCollection>("HFRingSums");
-               prod.produces<CaloRegionBxCollection>();
+               prod.produces<L1CaloRegionCollection>();
                prod.produces<CaloTowerBxCollection>();
                prod.produces<EGammaBxCollection>();
                prod.produces<EtSumBxCollection>();
