@@ -3,7 +3,16 @@
 
 namespace l1t{
   PhysicsToBitConverter::PhysicsToBitConverter() {
-
+    for (int m=0;m<2;m++){
+      for (int n=0;n<6;n++){
+        words32bitLink[m][n]=0;
+      }
+    }
+    for (int m=0;m<2;m++){
+      for (int n=0;n<192;n++){
+        bitsLink[m][n]=0;
+      }
+    }
   }
 
   void PhysicsToBitConverter::Convert() {
