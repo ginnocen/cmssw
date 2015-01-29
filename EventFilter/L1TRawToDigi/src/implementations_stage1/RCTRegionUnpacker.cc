@@ -82,7 +82,7 @@ namespace l1t {
           
             unsigned int hfet=(unsigned int)converter.GetHFEt(j);
             
-            //std::cout <<"region HF ="<<j<<"="<<hfet<<std::endl;
+            std::cout <<"UNPACKER, region HF ="<<j<<"="<<hfet<<std::endl;
             L1CaloRegion rgn = L1CaloRegion(hfet,0,crate,j);
             resRCTRegions_->push_back(rgn);
           }
@@ -103,7 +103,7 @@ namespace l1t {
               bool hadveto=(bool)converter.GetRCHad(j,k);
               bool quiet=false;                                //to be fixed
                             
-              std::cout<<"region="<<j<<", card="<<k<<", rgnEt="<<RCet<<", overflow="<<overflow<<", tauveto="<<tauveto<<", hadveto="<<hadveto<<std::endl;
+              std::cout<<"UNPACKER, region="<<j<<", card="<<k<<", rgnEt="<<RCet<<", overflow="<<overflow<<", tauveto="<<tauveto<<", hadveto="<<hadveto<<std::endl;
               L1CaloRegion rgn = L1CaloRegion(RCet,overflow,tauveto,hadveto,quiet,crate,j,k);     
               resRCTRegions_->push_back(rgn);
             }
