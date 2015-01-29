@@ -55,7 +55,7 @@ namespace l1t{
     int mylink = databaseobject.GetLink(t);
     
     if(value>(pow(2,mylength)-1)) std::cout<<"The value you are trying to set has more bins than expected "<<std::endl;
-    for (int i=0;i<mylength;i++) bitsLink[mylink][i+mystart]=(value>>i)&&0x1;
+    for (int i=0;i<mylength;i++) bitsLink[mylink][i+mystart]=(value>>i)&0x1;
 
   }
 
