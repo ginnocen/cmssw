@@ -45,7 +45,7 @@ namespace l1t {
       } else {
         lastBX = ceil((double)nBX/2.);
       }
-
+*/
       auto resRCTRegions_ = static_cast<CaloCollections*>(coll)->getCaloRegions();
       //resRCTRegions_->setBXRange(std::min(firstBX, resRCTRegions_->getFirstBX()), std::max(lastBX, resRCTRegions_->getLastBX()));
 
@@ -109,7 +109,7 @@ namespace l1t {
             }
           }
         }// end if even
-      }// end of loop over BX */
+      }// end of loop over BX 
       return true;
     }
   }
