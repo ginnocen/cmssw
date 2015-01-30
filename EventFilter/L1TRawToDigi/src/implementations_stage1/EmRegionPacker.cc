@@ -58,7 +58,7 @@ namespace l1t {
               converter[rctCrate].SetRCOf(overFlow,rctCard,rctRegion);
               converter[rctCrate].SetRCTau(fineGrain,rctCard,rctRegion);
               converter[rctCrate].SetRCHad(mip,rctCard,rctRegion);
-              std::cout<<"region="<<rctRegion<<", card="<<rctCard<<", rgnEt="<<et<<", overflow="<<overFlow<<", tauveto="<<fineGrain<<", hadveto="<<mip<<std::endl;
+              std::cout<<"CRATE"<<rctCrate<<"region="<<rctRegion<<", card="<<rctCard<<", rgnEt="<<et<<", overflow="<<overFlow<<", tauveto="<<fineGrain<<", hadveto="<<mip<<std::endl;
 
             }
             else{
@@ -102,8 +102,8 @@ namespace l1t {
           else myRCTeven=false;
           int linkMP7=-1;
           database.GetLinkMP7(mycrateRCT,myRCTeven,linkMP7);
-          res.push_back(Block(i, load[i])); 
-          std::cout<<"index ="<<i<<",size="<<load[i].size()<<std::endl;
+          res.push_back(Block(2*linkMP7, load[i])); 
+          std::cout<<"index RCT ="<<i<<",size="<<load[i].size()<<"index MP7="<<linkMP7<<"Block ID="<<2*linkMP7<<std::endl;
         }
         return res;
       }
