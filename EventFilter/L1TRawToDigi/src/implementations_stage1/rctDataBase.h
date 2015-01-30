@@ -67,7 +67,7 @@ namespace l1t{
         else RCTeven=false;
     }
     void GetLinkMP7(unsigned int RCTcrate, bool RCTeven, int &linkMP7){
-        linkMP7=indexfromoRSCtoMP7[RCTcrate*2+(int)RCTeven];
+        linkMP7=indexfromoRSCtoMP7[RCTcrate*2+(1-(int)RCTeven)];
     }
 
     int GetIndices(rctObjectType t, int firstindex, int secondindex = -1)
