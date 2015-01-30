@@ -82,7 +82,7 @@ namespace l1t {
           
             unsigned int hfet=(unsigned int)converter.GetHFEt(j);
             
-            std::cout <<"UNPACKER, region HF ="<<j<<"="<<hfet<<std::endl;
+            std::cout<<"UNPACKER, CRATE"<<crate<<"region="<<j<<", rgnEt="<<hfet<<std::endl;
             L1CaloRegion rgn = L1CaloRegion(hfet,0,crate,j);
             resRCTRegions_->push_back(rgn);
           }

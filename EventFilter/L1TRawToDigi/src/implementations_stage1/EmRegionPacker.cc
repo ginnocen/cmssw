@@ -63,6 +63,8 @@ namespace l1t {
             }
             else{
               converter[rctCrate].SetHFEt(et,rctRegion);
+              std::cout<<"CRATE"<<rctCrate<<"region="<<rctRegion<<", rgnEt="<<et<<std::endl;
+
             }
           }//end calo region
 
