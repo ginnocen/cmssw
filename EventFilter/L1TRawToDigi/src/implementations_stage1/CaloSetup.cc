@@ -78,15 +78,14 @@ namespace l1t {
                      res[7] = ring_unp;
                      res[8] = isotau_unp;
                   }
-                  auto rctRegion_unp = UnpackerFactory::get()->make("stage1::RCTRegionUnpacker");
-                  auto rctEm_unp = UnpackerFactory::get()->make("stage1::RCTEmUnpacker");
+                  auto rct_unp = UnpackerFactory::get()->make("stage1::RCTUnpacker");
 
                   for (int m=0;m<36;m++) {
                     if (board == 4109) {
-                      res[m*2] = rctRegion_unp;
+                      res[m*2] = rct_unp;
                     }
                     else if (board == 4110) {
-                      res[m*2] = rctEm_unp;
+                      //res[m*2] = rctEm_unp;
                     }
                   }
                   if (board == 4109) {
