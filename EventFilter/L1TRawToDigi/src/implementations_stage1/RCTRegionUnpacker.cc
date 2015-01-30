@@ -103,7 +103,7 @@ namespace l1t {
               bool hadveto=(bool)converter.GetRCHad(j,k);
               bool quiet=false;                                //to be fixed
                             
-              std::cout<<"UNPACKER, region="<<j<<", card="<<k<<", rgnEt="<<RCet<<", overflow="<<overflow<<", tauveto="<<tauveto<<", hadveto="<<hadveto<<std::endl;
+              std::cout<<"UNPACKER, region="<<k<<", card="<<j<<", rgnEt="<<RCet<<", overflow="<<overflow<<", tauveto="<<tauveto<<", hadveto="<<hadveto<<std::endl;
               L1CaloRegion rgn = L1CaloRegion(RCet,overflow,tauveto,hadveto,quiet,crate,j,k);     
               resRCTRegions_->push_back(rgn);
             }
