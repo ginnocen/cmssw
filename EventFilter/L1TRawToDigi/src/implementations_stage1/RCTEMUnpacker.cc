@@ -45,14 +45,14 @@ namespace l1t {
       } else {
         lastBX = ceil((double)nBX/2.);
       }
-
+*/
       auto resRCTEMCands_ = static_cast<CaloCollections*>(coll)->getCaloEmCands();
-      resRCTEMCands_->setBXRange(std::min(firstBX, resRCTEMCands_->getFirstBX()), std::max(lastBX, resRCTEMCands_->getLastBX()));
+//      resRCTEMCands_->setBXRange(std::min(firstBX, resRCTEMCands_->getFirstBX()), std::max(lastBX, resRCTEMCands_->getLastBX()));
 
       // Initialise index
       int unsigned i = 0;
 
-      for (int bx=firstBX; bx<lastBX; bx++){
+      for (int bx=0; bx<1; bx++){
 
         unsigned int crate;
         bool even=0;
@@ -85,12 +85,10 @@ namespace l1t {
             unsigned int reg=(unsigned int)converter.GetNEReg(j);
             unsigned int card=(unsigned int)converter.GetNECard(j);
 
-            LogDebug("L1T") <<"index="<<j<<", neRank="<<rank<<", neRegn="<<reg<<", neCard="<<card<<std::endl;
+            LogDebug("L1T") <<"UNPACKER, CRATE"<<crate<<"NON ISO em rank="<<rank<<", region="<<reg<<", card="<<card<<std::endl;
+
             L1CaloEmCand em = L1CaloEmCand(rank,reg,card,crate,false);
-            ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
-            CaloEmCand EmCand(*p4,(int) em.rank(),(int) em.regionId().ieta(),(int) em.regionId().iphi(),(int) j);            //j was originally em.index, to be checked 
-            EmCand.setHwIso((int) em.isolated());
-            resRCTEMCands_->push_back(bx,EmCand);
+            resRCTEMCands_->push_back(em);
           }
 
           for(int j = 0; j < 4; j++) {
@@ -102,16 +100,12 @@ namespace l1t {
             unsigned int reg=converter.GetIEReg(j);
             unsigned int card=converter.GetIECard(j);
 
-            LogDebug("L1T") <<"index="<<j<<", neRank="<<rank<<", neRegn="<<reg<<", neCard="<<card<<std::endl;
+            LogDebug("L1T") <<"UNPACKER, CRATE"<<crate<<"NON ISO em rank="<<rank<<", region="<<reg<<", card="<<card<<std::endl;
             L1CaloEmCand em = L1CaloEmCand(rank,reg,card,crate,true);
-            ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
-            CaloEmCand EmCand(*p4,(int) em.rank(),(int) em.regionId().ieta(),(int) em.regionId().iphi(),(int) j);            //j was originally em.index, to be checked 
-            EmCand.setHwIso((int) em.isolated());
-            resRCTEMCands_->push_back(bx,EmCand);
+            resRCTEMCands_->push_back(em);
           }
         }// end if odd
       }// end of loop over BX
-      */
       return true;
     }
   }

@@ -1,4 +1,5 @@
 #include "FWCore/Framework/interface/Event.h"
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
 
 #include "EventFilter/L1TRawToDigi/interface/Packer.h"
 
@@ -58,12 +59,12 @@ namespace l1t {
               converter[rctCrate].SetRCOf(overFlow,rctCard,rctRegion);
               converter[rctCrate].SetRCTau(fineGrain,rctCard,rctRegion);
               converter[rctCrate].SetRCHad(mip,rctCard,rctRegion);
-              std::cout<<"CRATE"<<rctCrate<<"region="<<rctRegion<<", card="<<rctCard<<", rgnEt="<<et<<", overflow="<<overFlow<<", tauveto="<<fineGrain<<", hadveto="<<mip<<std::endl;
+              LogDebug("L1T")<<"CRATE"<<rctCrate<<"region="<<rctRegion<<", card="<<rctCard<<", rgnEt="<<et<<", overflow="<<overFlow<<", tauveto="<<fineGrain<<", hadveto="<<mip<<std::endl;
 
             }
             else{
               converter[rctCrate].SetHFEt(et,rctRegion);
-              std::cout<<"CRATE"<<rctCrate<<"region="<<rctRegion<<", rgnEt="<<et<<std::endl;
+              LogDebug("L1T")<<"CRATE"<<rctCrate<<"region="<<rctRegion<<", rgnEt="<<et<<std::endl;
 
             }
           }//end calo region
@@ -75,12 +76,20 @@ namespace l1t {
             int index=(int)j->index();
             int rctCrate=(int)j->rctCrate();
             bool isolated=(bool)j->isolated();  
+            int rctCard=(int)j->rctCard();
+            int rctRegion=(int)j->rctRegion();  
 
             if(isolated){
               converter[rctCrate].SetIEEt(rank,index);
+              converter[rctCrate].SetIEReg(rctRegion,index);
+              converter[rctCrate].SetIECard(rctCard,index);
+              LogDebug("L1T")<<"CRATE"<<rctCrate<<"ISO em rank="<<rank<<", region="<<rctRegion<<", card="<<rctCard<<std::endl;
             }
             else{
               converter[rctCrate].SetNEEt(rank,index);
+              converter[rctCrate].SetNEReg(rctRegion,index);
+              converter[rctCrate].SetNECard(rctCard,index);
+              LogDebug("L1T")<<"CRATE"<<rctCrate<<"NON ISO em rank="<<rank<<", region="<<rctRegion<<", card="<<rctCard<<std::endl;
             }
           }//end of em cand
 
@@ -91,7 +100,7 @@ namespace l1t {
               load[2*in+1].push_back((uint32_t)converter[in].Get32bitWordLinkOdd(d));
             }
           }
-        }
+        }// end of BX
         
         rctDataBase database;
 
@@ -105,7 +114,6 @@ namespace l1t {
           int linkMP7=-1;
           database.GetLinkMP7(mycrateRCT,myRCTeven,linkMP7);
           res.push_back(Block(2*linkMP7, load[i])); 
-          std::cout<<"index RCT ="<<i<<",size="<<load[i].size()<<"index MP7="<<linkMP7<<"Block ID="<<2*linkMP7<<std::endl;
         }
         return res;
       }
