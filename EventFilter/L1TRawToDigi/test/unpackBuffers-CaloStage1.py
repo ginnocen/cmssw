@@ -30,7 +30,7 @@ options.register('egLatency',
                  VarParsing.VarParsing.varType.int,
                  "EG board latency (frames)")
 options.register('jetLatency',
-                 0,
+                 32,
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.int,
                  "Jet board latency (frames)")
@@ -49,7 +49,7 @@ options.register('dump',
 options.parseArguments()
 
 if (options.maxEvents == -1):
-    options.maxEvents = 1
+    options.maxEvents = 100
 
 
 process = cms.Process('Raw2Digi')
@@ -80,13 +80,13 @@ process.options = cms.untracked.PSet(
 process.output = cms.OutputModule(
     "PoolOutputModule",
     outputCommands = cms.untracked.vstring("keep *"),
-    fileName = cms.untracked.string('l1tCalo_2015_EDM.root')
+    fileName = cms.untracked.string('file:l1tCalo_2015_EDM.root')
 )
 
-# Additional output definition
+# Additional output definition 
 # TTree output file
 process.load("CommonTools.UtilAlgos.TFileService_cfi")
-process.TFileService.fileName = cms.string('l1tCalo_2015_histos.root')
+process.TFileService.fileName = cms.string('file:l1tCalo_2015_histos.root')
 
 
 # enable debug message logging for our modules
@@ -128,8 +128,8 @@ offsets   = [ jetOffset,  egOffset ]
 process.stage1Raw.nFramesPerEvent    = cms.untracked.int32(options.framesPerEvent)
 process.stage1Raw.nFramesOffset    = cms.untracked.vuint32(offsets)
 process.stage1Raw.nFramesLatency   = cms.untracked.vuint32(latencies)
-process.stage1Raw.rxFile = cms.untracked.string("rx_summary.txt")
-process.stage1Raw.txFile = cms.untracked.string("tx_summary.txt")
+process.stage1Raw.rxFile = cms.untracked.string("/afs/cern.ch/user/g/ginnocen/public/MP7testsP5_GoldenEvents_FixIso/rx_summary_nostrobe.txt")
+process.stage1Raw.txFile = cms.untracked.string("/afs/cern.ch/user/g/ginnocen/public/MP7testsP5_GoldenEvents_FixIso/tx_summary_nostrobe.txt")
 
 # dump raw data
 process.dumpRaw = cms.EDAnalyzer( 

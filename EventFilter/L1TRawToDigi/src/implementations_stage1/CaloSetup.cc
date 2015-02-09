@@ -19,7 +19,7 @@ namespace l1t {
             virtual PackerMap getPackers(int fed, int fw) override {
                PackerMap res;
 
-               res[{1, 0x200D}] = {
+               res[{1, 0x100D}] = {
                   PackerFactory::get()->make("stage1::IsoEGammaPacker"),
                   PackerFactory::get()->make("stage1::NonIsoEGammaPacker"),
                   PackerFactory::get()->make("stage1::CentralJetPacker"),
@@ -27,17 +27,23 @@ namespace l1t {
                   PackerFactory::get()->make("stage1::TauPacker"),
                   PackerFactory::get()->make("stage1::IsoTauPacker"),
                   PackerFactory::get()->make("stage1::EtSumPacker"),
-                  PackerFactory::get()->make("stage1::HFRingPacker"),
+                  PackerFactory::get()->make("stage1::MissEtPacker"),
+                  PackerFactory::get()->make("stage1::CaloSpareHFPacker"),
+                  PackerFactory::get()->make("stage1::MissHtPacker"),
+                  PackerFactory::get()->make("stage1::RCTEmRegionPacker"),      
+               };
+               res[{1, 0x100E}] = {
+                  PackerFactory::get()->make("stage1::RCTEmRegionPacker"),      
                };
 
                return res;
             };
 
             virtual void registerProducts(edm::one::EDProducerBase& prod) override {
-               prod.produces<CaloEmCandBxCollection>();
+               prod.produces<L1CaloEmCollection>();
                prod.produces<CaloSpareBxCollection>("HFBitCounts");
                prod.produces<CaloSpareBxCollection>("HFRingSums");
-               prod.produces<CaloRegionBxCollection>();
+               prod.produces<L1CaloRegionCollection>();
                prod.produces<CaloTowerBxCollection>();
                prod.produces<EGammaBxCollection>();
                prod.produces<EtSumBxCollection>();
@@ -55,29 +61,35 @@ namespace l1t {
 
                auto cjet_unp = UnpackerFactory::get()->make("stage1::CentralJetUnpacker");
                auto fjet_unp = UnpackerFactory::get()->make("stage1::ForwardJetUnpacker");
+               auto iegamma_unp = UnpackerFactory::get()->make("stage1::IsoEGammaUnpacker");
+               auto niegamma_unp = UnpackerFactory::get()->make("stage1::NonIsoEGammaUnpacker");
+               auto etsum_unp = UnpackerFactory::get()->make("stage1::EtSumUnpacker");
+               auto missetsum_unp = UnpackerFactory::get()->make("stage1::MissEtUnpacker");
+               //auto tau_unp = UnpackerFactory::get()->make("stage1::TauUnpacker");
+               //auto isotau_unp = UnpackerFactory::get()->make("stage1::IsoTauUnpacker");
+               auto calospare_unp = UnpackerFactory::get()->make("stage1::CaloSpareHFUnpacker");
+               auto misshtsum_unp = UnpackerFactory::get()->make("stage1::MissHtUnpacker");
 
-               if (fed == 1352) {
-                  if (board == 0x200D) {
-                     auto iegamma_unp = UnpackerFactory::get()->make("stage1::IsoEGammaUnpacker");
-                     auto niegamma_unp = UnpackerFactory::get()->make("stage1::NonIsoEGammaUnpacker");
-                     auto tau_unp = UnpackerFactory::get()->make("stage1::TauUnpacker");
-                     auto isotau_unp = UnpackerFactory::get()->make("stage1::IsoTauUnpacker");
-                     auto etsum_unp = UnpackerFactory::get()->make("stage1::EtSumUnpacker");
-                     auto ring_unp = UnpackerFactory::get()->make("stage1::HFRingUnpacker");
-
-                     res[1] = iegamma_unp;
-                     res[2] = niegamma_unp;
-                     res[3] = cjet_unp;
-                     res[4] = fjet_unp;
-                     res[5] = tau_unp;
-                     res[6] = etsum_unp;
-                     res[7] = ring_unp;
-                     res[8] = isotau_unp;
-                  }
-               } else {
+                if (fed == 1352) {
                   auto rctRegion_unp = UnpackerFactory::get()->make("stage1::RCTRegionUnpacker");
                   auto rctEm_unp = UnpackerFactory::get()->make("stage1::RCTEmUnpacker");
+                  
+                  if(board == 4109){  
 
+                    res[93] = cjet_unp;
+                    res[95] = cjet_unp;
+                    res[97] = fjet_unp;
+                    res[99] = fjet_unp;
+                    res[101] = niegamma_unp;
+                    res[103] = niegamma_unp;
+                    res[105] = iegamma_unp;
+                    res[107] = iegamma_unp;
+                    res[109] = etsum_unp;
+                    res[111] = missetsum_unp;
+                    res[113] = calospare_unp;
+                    res[115] = misshtsum_unp;
+
+                  }
                   for (int m=0;m<36;m++) {
                     if (board == 4109) {
                       res[m*2] = rctRegion_unp;
@@ -85,10 +97,6 @@ namespace l1t {
                     else if (board == 4110) {
                       res[m*2] = rctEm_unp;
                     }
-                  }
-                  if (board == 4109) {
-                    res[105] = cjet_unp;
-                    res[107] = fjet_unp;
                   }
                }
                return res;

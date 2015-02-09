@@ -32,13 +32,11 @@ process(const l1t::Block& block, BXVector<T> * coll, F modify) {
       uint32_t raw_data0 = block.payload()[i++];
       uint32_t raw_data1 = block.payload()[i++];        
 
-      uint16_t candbit[4];
+      uint16_t candbit[2];
       candbit[0] = raw_data0 & 0xFFFF;
-      candbit[1] = (raw_data0 >> 16) & 0xFFFF;
-      candbit[2] = raw_data1 & 0xFFFF;
-      candbit[3] = (raw_data1 >> 16) & 0xFFFF;
+      candbit[1] = raw_data1 & 0xFFFF;
 
-      for (int icand=0;icand<4;icand++){
+      for (int icand=0;icand<2;icand++){
 
          int candPt=candbit[icand] & 0x3F;
          int candEta=(candbit[icand]>>6 ) & 0x7;

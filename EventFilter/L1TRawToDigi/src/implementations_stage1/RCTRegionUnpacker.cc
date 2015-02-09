@@ -34,6 +34,7 @@ namespace l1t {
   namespace stage1 {
     bool RCTRegionUnpacker::unpack(const Block& block, UnpackerCollections *coll){
 
+
       int nBX = int(ceil(block.header().getSize() / 6.)); 
 
       // Find the first and last BXs
@@ -46,7 +47,6 @@ namespace l1t {
       }
 
       auto resRCTRegions_ = static_cast<CaloCollections*>(coll)->getCaloRegions();
-      resRCTRegions_->setBXRange(std::min(firstBX, resRCTRegions_->getFirstBX()), std::max(lastBX, resRCTRegions_->getLastBX()));
 
       // Initialise index
       int unsigned i = 0;
@@ -81,11 +81,10 @@ namespace l1t {
           
             unsigned int hfet=(unsigned int)converter.GetHFEt(j);
             
-            std::cout <<"region HF ="<<j<<"="<<hfet<<std::endl;
+            LogDebug("L1T")<<"UNPACKER, CRATE"<<crate<<"region="<<j<<", rgnEt="<<hfet<<std::endl;
             L1CaloRegion rgn = L1CaloRegion(hfet,0,crate,j);
-            ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();
-            CaloRegion region(*p4,0.,0.,(int) rgn.et(),(int) rgn.id().ieta(),(int) rgn.id().iphi(),0.,0.);
-            resRCTRegions_->push_back(bx,region);
+            rgn.setBx(bx);
+            resRCTRegions_->push_back(rgn);
           }
         }// end if odd
 
@@ -104,15 +103,14 @@ namespace l1t {
               bool hadveto=(bool)converter.GetRCHad(j,k);
               bool quiet=false;                                //to be fixed
                             
-              LogDebug("L1T") <<"region="<<j<<", card="<<k<<", rgnEt="<<RCet<<", overflow="<<overflow<<", tauveto="<<tauveto<<", hadveto="<<hadveto<<std::endl;
-              L1CaloRegion rgn = L1CaloRegion(RCet,overflow,tauveto,hadveto,quiet,crate,j,k);     
-              ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *p4 =new ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >();	     
-              CaloRegion region(*p4,0.,0.,(int) rgn.et(),(int) rgn.id().ieta(),(int) rgn.id().iphi(),0,0);
-              resRCTRegions_->push_back(bx,region);
+              LogDebug("L1T")<<"UNPACKER, CRATE="<<crate<<",region="<<k<<", card="<<j<<", rgnEt="<<RCet<<", overflow="<<overflow<<", tauveto="<<tauveto<<", hadveto="<<hadveto<<std::endl;
+              L1CaloRegion rgn = L1CaloRegion(RCet,overflow,tauveto,hadveto,quiet,crate,j,k);    
+              rgn.setBx(bx); 
+              resRCTRegions_->push_back(rgn);
             }
           }
         }// end if even
-      }// end of loop over BX
+      }// end of loop over BX 
       return true;
     }
   }
