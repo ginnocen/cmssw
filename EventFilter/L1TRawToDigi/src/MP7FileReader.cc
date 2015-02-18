@@ -219,13 +219,13 @@ MP7FileReader::readRows() {
 
         if (boost::regex_match(line, what, reFrame_)) {
             // check frame number
-            uint32_t n = boost::lexical_cast<uint32_t>(what[1].str());
+          //  uint32_t n = boost::lexical_cast<uint32_t>(what[1].str());
 
-            if (n != data.size()) {
-                std::stringstream ss;
-                ss << "Frame misalignment! (expected " << data.size() << " found " << n;
-                throw std::logic_error(ss.str());
-            }
+           // if (n != data.size()) {
+           //     std::stringstream ss;
+           //     ss << "Frame misalignment! (expected " << data.size() << " found " << n;
+           //     throw std::logic_error(ss.str());
+           // }
             std::vector<std::string> tokens;
             std::string tmp = what[2].str();
             boost::trim(tmp);
