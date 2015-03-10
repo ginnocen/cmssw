@@ -183,6 +183,10 @@ private:
   if (vpset.size() != nBoard_) {
     edm::LogError("L1T") << "Wrong number of block specs " << vpset.size();
   }
+  
+  rxBlockLength_.resize(nBoard_);
+  txBlockLength_.resize(nBoard_);
+
 
   for (unsigned i=0; i<nBoard_; ++i) {
 
@@ -371,7 +375,7 @@ MP7BufferDumpToRaw::getBlocks(int iBoard)
 
   if (!packetisedData_) {
      rxIndex_.at(iBoard) += nFramesPerEvent_;
-     txIndex_.at(iBoard) += nFramesPerEvent_;
+     txIndex_.at(iBoard) += 2;
   }
 
   LogDebug("L1T") << "AMC " << iBoard << ", read " << blocks.size() << " blocks";
