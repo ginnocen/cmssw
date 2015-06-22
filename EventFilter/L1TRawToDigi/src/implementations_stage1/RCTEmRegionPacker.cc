@@ -47,16 +47,14 @@ namespace l1t {
           lastBX=max(lastBX,bx);
         }
         
-        int nBX=lastBX-firstBX+1;
-        
         std::vector<uint32_t> load[36];
 
-        for (int indexBX = 0; indexBX <nBX; ++indexBX) {
+        for (int indexBX = firstBX; indexBX <lastBX; ++indexBX) {
           int n = 0;
           PhysicsToBitConverter converter[18];
           for (auto j = caloregion->begin(); j != caloregion->end(); ++j, ++n) {
           
-            if(j->bx()!=firstBX+indexBX) continue;
+            if(j->bx()!=indexBX) continue;
 
             int et=(int)j->et();
             int overFlow=(int)j->overFlow();
@@ -86,7 +84,7 @@ namespace l1t {
           int m = 0;
           for (auto j = caloemcand->begin(); j != caloemcand->end(); ++j, ++m) {
           
-            if(j->bx()!=firstBX+indexBX) continue;
+            if(j->bx()!=indexBX) continue;
 
             int rank=(int)j->rank();
             int index=(int)j->index();
