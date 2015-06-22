@@ -1,4 +1,5 @@
-#include "FWCore/Framework/interface/one/EDProducerBase.h"
+#include "FWCore/Framework/interface/stream/EDProducerBase.h"
+#include "FWCore/Utilities/interface/InputTag.h"
 
 #include "EventFilter/L1TRawToDigi/interface/Packer.h"
 #include "EventFilter/L1TRawToDigi/interface/Unpacker.h"
@@ -16,6 +17,15 @@ namespace l1t {
                return std::unique_ptr<PackerTokens>(new CaloTokens(cfg, cc));
             };
 
+            virtual void fillDescription(edm::ParameterSetDescription& desc) override {
+               desc.addOptional<edm::InputTag>("TauInputLabel")->setComment("for stage1");
+               desc.addOptional<edm::InputTag>("IsoTauInputLabel")->setComment("for stage1");
+               desc.addOptional<edm::InputTag>("HFBitCountsInputLabel")->setComment("for stage1");
+               desc.addOptional<edm::InputTag>("HFRingSumsInputLabel")->setComment("for stage1");
+               desc.addOptional<edm::InputTag>("RegionInputLabel")->setComment("for stage1");
+               desc.addOptional<edm::InputTag>("EmCandInputLabel")->setComment("for stage1");
+            };
+
             virtual PackerMap getPackers(int fed, int fw) override {
                PackerMap res;
 
@@ -30,16 +40,13 @@ namespace l1t {
                   PackerFactory::get()->make("stage1::MissEtPacker"),
                   PackerFactory::get()->make("stage1::CaloSpareHFPacker"),
                   PackerFactory::get()->make("stage1::MissHtPacker"),
-                  PackerFactory::get()->make("stage1::RCTEmRegionPacker"),      
-               };
-               res[{1, 0x100E}] = {
-                  PackerFactory::get()->make("stage1::RCTEmRegionPacker"),      
+                  PackerFactory::get()->make("stage1::RCTEmRegionPacker"),
                };
 
                return res;
             };
 
-            virtual void registerProducts(edm::one::EDProducerBase& prod) override {
+            virtual void registerProducts(edm::stream::EDProducerBase& prod) override {
                prod.produces<L1CaloEmCollection>();
                prod.produces<CaloSpareBxCollection>("HFBitCounts");
                prod.produces<CaloSpareBxCollection>("HFRingSums");

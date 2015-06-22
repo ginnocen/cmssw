@@ -1,4 +1,4 @@
-#include "FWCore/Framework/interface/one/EDProducerBase.h"
+#include "FWCore/Framework/interface/stream/EDProducerBase.h"
 
 #include "EventFilter/L1TRawToDigi/interface/Packer.h"
 #include "EventFilter/L1TRawToDigi/interface/Unpacker.h"
@@ -15,6 +15,8 @@ namespace l1t {
             virtual std::unique_ptr<PackerTokens> registerConsumes(const edm::ParameterSet& cfg, edm::ConsumesCollector& cc) override {
                return std::unique_ptr<PackerTokens>(new GTTokens(cfg, cc));
             };
+
+            virtual void fillDescription(edm::ParameterSetDescription& desc) override {};
 
             virtual PackerMap getPackers(int fed, int fw) override {
                PackerMap res;
@@ -35,7 +37,7 @@ namespace l1t {
                return res;
             };
 
-            virtual void registerProducts(edm::one::EDProducerBase& prod) override {
+            virtual void registerProducts(edm::stream::EDProducerBase& prod) override {
 	      
 	       prod.produces<EGammaBxCollection>("GT");
 	       prod.produces<EtSumBxCollection>("GT");

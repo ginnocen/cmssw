@@ -30,7 +30,7 @@
 
 #include "FWCore/Framework/interface/ConsumesCollector.h"
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/one/EDProducer.h"
+#include "FWCore/Framework/interface/stream/EDProducer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/Utilities/interface/CRC16.h"
@@ -43,19 +43,17 @@
 #include "EventFilter/L1TRawToDigi/interface/PackingSetup.h"
 
 namespace l1t {
-   class L1TDigiToRaw : public edm::one::EDProducer<edm::one::SharedResources, edm::one::WatchRuns, edm::one::WatchLuminosityBlocks> {
+   class L1TDigiToRaw : public edm::stream::EDProducer<> {
       public:
          explicit L1TDigiToRaw(const edm::ParameterSet&);
          ~L1TDigiToRaw();
 
          static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
-         using edm::one::EDProducer<edm::one::SharedResources, edm::one::WatchRuns, edm::one::WatchLuminosityBlocks>::consumes;
+         using edm::stream::EDProducer<>::consumes;
 
       private:
-         virtual void beginJob() override;
          virtual void produce(edm::Event&, const edm::EventSetup&) override;
-         virtual void endJob() override;
 
          virtual void beginRun(edm::Run const&, edm::EventSetup const&) override {};
          virtual void endRun(edm::Run const&, edm::EventSetup const&) override {};
@@ -188,17 +186,6 @@ namespace l1t {
       event.put(raw_coll);
    }
 
-   // ------------ method called once each job just before starashtting event loop  ------------
-   void 
-   L1TDigiToRaw::beginJob()
-   {
-   }
-
-   // ------------ method called once each job just after ending the event loop  ------------
-   void 
-   L1TDigiToRaw::endJob() {
-   }
-
    // ------------ method called when starting to processes a run  ------------
    /*
    void
@@ -234,11 +221,18 @@ namespace l1t {
    // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
    void
    L1TDigiToRaw::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
-     //The following says we do not know what parameters are allowed so do no validation
-     // Please change this to state exactly what you do use, even if it is no parameters
      edm::ParameterSetDescription desc;
-     desc.setUnknown();
-     descriptions.addDefault(desc);
+     desc.add<unsigned int>("FWId", -1);
+     desc.add<int>("FedId");
+     desc.addUntracked<int>("eventType", 1);
+     desc.add<std::string>("Setup");
+     desc.addOptional<edm::InputTag>("InputLabel");
+     desc.addUntracked<int>("lenSlinkHeader", 8);
+     desc.addUntracked<int>("lenSlinkTrailer", 8);
+
+     PackingSetupFactory::get()->fillDescription(desc);
+
+     descriptions.add("l1tDigiToRaw", desc);
    }
 }
 
