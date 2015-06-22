@@ -1,5 +1,6 @@
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
+#include <algorithm> 
 
 #include "EventFilter/L1TRawToDigi/interface/Packer.h"
 
@@ -12,7 +13,6 @@
 
 #include "PhysicsToBitConverter.h"
 #include "rctDataBase.h"
-
 
 #include "CaloTokens.h"
 
@@ -36,13 +36,27 @@ namespace l1t {
 
         edm::Handle<L1CaloEmCollection> caloemcand;
         event.getByToken(static_cast<const CaloTokens*>(toks)->getCaloEmCandToken(), caloemcand);
-
+                
+        int firstBX=0;
+        int lastBX=0;
+        
+        int index_emcand = 0;
+        for (auto jemcand = caloemcand->begin(); jemcand != caloemcand->end(); ++jemcand, ++index_emcand) {
+          int bx=jemcand->bx();
+          firstBX=min(firstBX,bx);
+          lastBX=max(lastBX,bx);
+        }
+        
+        int nBX=lastBX-firstBX+1;
+        
         std::vector<uint32_t> load[36];
 
-        for (int i = 0; i <= 0; ++i) {
+        for (int indexBX = 0; indexBX <nBX; ++indexBX) {
           int n = 0;
           PhysicsToBitConverter converter[18];
           for (auto j = caloregion->begin(); j != caloregion->end(); ++j, ++n) {
+          
+            if(j->bx()!=firstBX+indexBX) continue;
 
             int et=(int)j->et();
             int overFlow=(int)j->overFlow();
@@ -71,6 +85,8 @@ namespace l1t {
 
           int m = 0;
           for (auto j = caloemcand->begin(); j != caloemcand->end(); ++j, ++m) {
+          
+            if(j->bx()!=firstBX+indexBX) continue;
 
             int rank=(int)j->rank();
             int index=(int)j->index();
