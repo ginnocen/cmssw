@@ -376,7 +376,7 @@ MP7BufferDumpToRaw::getBlocks(int iBoard)
   }
   else {
     rxIndex_.at(iBoard) += nFramesPerEvent_;
-    txIndex_.at(iBoard) += nFramesPerEvent_;
+    txIndex_.at(iBoard) += 2;
   }
 
   LogDebug("L1T") << "Board " << iBoard << ", read " << blocks.size() << " blocks";

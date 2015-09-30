@@ -39,7 +39,7 @@ options.register('dump',
 options.parseArguments()
 
 if (options.maxEvents == -1):
-    options.maxEvents = 1
+    options.maxEvents = 100
 
 
 process = cms.Process('Raw2Digi')
