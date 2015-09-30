@@ -15,17 +15,17 @@ options.register('skipEvents',
                  VarParsing.VarParsing.varType.int,
                  "Number of events to skip")
 options.register('streamer',
-                 False,
+                 True,
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.bool,
                  "Use streamer file as input")
 options.register('debug',
-                 False,
+                 True,
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.bool,
                  "Print debug messages")
 options.register('dumpRaw',
-                 False,
+                 True,
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.bool,
                  "Print RAW data")
@@ -40,7 +40,7 @@ options.register('histos',
                  VarParsing.VarParsing.varType.bool,
                  "Produce standard histograms")
 options.register('edm',
-                 False,
+                 True,
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.bool,
                  "Produce EDM file")
@@ -49,6 +49,11 @@ options.register('valEvents',
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.bool,
                  "Filter on validation events")
+options.register('RunAnalyzer',
+                 True,
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.bool,
+                 "Run Analyzer Unpacker")
 
                  
 options.parseArguments()
@@ -69,7 +74,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 if (options.streamer) :
     process.source = cms.Source(
         "NewEventStreamFileReader",
-        fileNames = cms.untracked.vstring (options.inputFiles),
+        fileNames = cms.untracked.vstring ('file:run257945_ls0001_streamPhysics_StorageManager.dat'),
         skipEvents=cms.untracked.uint32(options.skipEvents)
     )
 else :
@@ -184,6 +189,21 @@ if (options.dumpDigis):
         process.dumpGctDigis.rawInput = cms.untracked.InputTag("caloStage1Digis")
 else:
     process.path.remove(process.dumpGctDigis)
+
+if (options.RunAnalyzer):
+   process.TFileService = cms.Service("TFileService",fileName = cms.string("L1UnpackedUnpacker.root"))
+   process.UnpackerResults = cms.EDAnalyzer('l1t::L1UpgradeAnalyzer',
+                                         InputLayer2Collection = cms.InputTag("caloStage1Digis"),
+                                         InputLayer2TauCollection = cms.InputTag("caloStage1Digis:rlxTaus"),
+                                         InputLayer2IsoTauCollection = cms.InputTag("caloStage1Digis:isoTaus"),
+                                         InputLayer2CaloSpareCollection = cms.InputTag("caloStage1Digis:HFRingSums"),
+                                         InputLayer1Collection = cms.InputTag("None"),
+                                         legacyRCTDigis = cms.InputTag("caloStage1Digis"),
+                                         FEDRawCollection = cms.InputTag("rawDataCollector")
+   )
+   process.myanalyzer = cms.Path(
+   process.UnpackerResults
+   )
 
 
 # optional EDM file
