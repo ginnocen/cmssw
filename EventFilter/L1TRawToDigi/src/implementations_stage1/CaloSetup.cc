@@ -117,9 +117,9 @@ namespace l1t {
                      if(board == 0x2301){  
                         res[77] = cjet_unp_Left;
                         res[79] = cjet_unp_Right;  
-                        /*
                         res[81] = fjet_unp_Left;
                         res[83] = fjet_unp_Right;
+                        */
                         res[85] = iegamma_unp_Left;
                         res[87] = iegamma_unp_Right;
                         res[89] = niegamma_unp_Left;
