@@ -114,9 +114,10 @@ namespace l1t {
                      auto rct_unp = UnpackerFactory::get()->make("stage1::RCTEmRegionUnpacker");
 
                      // 4109 == 0x100D
-                     if(board == 0x2300){  
+                     if(board == 0x2301){  
                         res[77] = cjet_unp_Left;
                         res[79] = cjet_unp_Right;  
+                        /*
                         res[81] = fjet_unp_Left;
                         res[83] = fjet_unp_Right;
                         res[85] = iegamma_unp_Left;
@@ -131,6 +132,7 @@ namespace l1t {
                         res[103] = tau_unp_Right;
                         res[105] = isotau_unp_Left;
                         res[107] = isotau_unp_Right;
+                        */
 
                         for (int m=0;m<36;m++) {
                            res[m*2] = rct_unp;

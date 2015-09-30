@@ -10,11 +10,11 @@ stage1Raw = cms.EDProducer(
 
     # parameters for non-packetised data
     nFramesPerEvent  = cms.untracked.int32(6),
-    nFramesOffset    = cms.untracked.vint32(0,9),
-    nFramesLatency   = cms.untracked.vint32(0,0),
+    nFramesOffset    = cms.untracked.vint32(0),
+    nFramesLatency   = cms.untracked.vint32(0),
 
     # DAQ parameters
-    boardId          = cms.untracked.vint32( 0x100D, 0x100E ),  # jet ID, EG ID
+    boardId          = cms.untracked.vint32(0x2301),  # jet ID, EG ID
     fedId            = cms.untracked.int32(1352),
     eventType        = cms.untracked.int32(238),
     fwVersion        = cms.untracked.int32(255),
@@ -58,36 +58,5 @@ stage1Raw = cms.EDProducer(
                                                     2,2,2,2, # quad 12
                                                     2,2,0,0) # quad 13
             ),
-        cms.untracked.PSet(  # EG board setup
-            rxBlockLength    = cms.untracked.vint32(6,6,6,6, # quad 0
-                                                    6,6,6,6, # quad 1
-                                                    6,6,6,6, # quad 2
-                                                    6,6,6,6, # quad 3
-                                                    6,6,6,6, # quad 4
-                                                    6,6,6,6, # quad 5
-                                                    6,6,6,6, # quad 6
-                                                    6,6,6,6, # quad 7
-                                                    6,6,6,6, # quad 8
-                                                    0,0,0,0, # quad 9
-                                                    0,0,0,0, # quad 10
-                                                    0,0,0,0, # quad 11
-                                                    0,0,0,0, # quad 12
-                                                    0,0,0,0) # quad 13
-            ,
-            txBlockLength    = cms.untracked.vint32(0,0,0,0, # quad 0
-                                                    0,0,0,0, # quad 1
-                                                    0,0,0,0, # quad 2
-                                                    0,0,0,0, # quad 3
-                                                    0,0,0,0, # quad 4
-                                                    0,0,0,0, # quad 5
-                                                    0,0,0,0, # quad 6
-                                                    0,0,0,0, # quad 7
-                                                    0,0,0,0, # quad 8
-                                                    0,0,0,0, # quad 9
-                                                    0,0,0,0, # quad 10
-                                                    0,0,0,0, # quad 11
-                                                    0,0,0,0, # quad 12
-                                                    0,0,0,0) # quad 13
-            )
-        )
-)
+        ),
+    )
