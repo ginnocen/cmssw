@@ -74,7 +74,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 if (options.streamer) :
     process.source = cms.Source(
         "NewEventStreamFileReader",
-        fileNames = cms.untracked.vstring ('file:run257945_ls0001_streamPhysics_StorageManager.dat'),
+        fileNames = cms.untracked.vstring ('file:/afs/cern.ch/work/g/ginnocen/public/inputsForHIFwtest/streams/run258035_ls0001_streamPhysics_StorageManager.dat'),
         skipEvents=cms.untracked.uint32(options.skipEvents)
     )
 else :
