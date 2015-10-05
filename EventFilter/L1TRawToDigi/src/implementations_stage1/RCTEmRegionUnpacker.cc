@@ -173,7 +173,7 @@ namespace l1t {
       bool RCTEmRegionUnpacker::unpack(const Block& block, UnpackerCollections *coll){
          if (block.header().getCapID() == 0) {
             unpack_region(block, coll);
-         } else if (block.header().getCapID() == 1) {
+         //} else if (block.header().getCapID() == 1) {
             unpack_em(block, coll);
          } else {
             return false;
