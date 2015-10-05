@@ -110,9 +110,13 @@ offsets   = [ offset ]
 
 process.stage1Raw.nFramesPerEvent    = cms.untracked.int32(options.framesPerEvent)
 process.stage1Raw.nFramesOffset    = cms.untracked.vuint32(offsets)
-process.stage1Raw.nFramesLatency   = cms.untracked.vuint32(42)
-process.stage1Raw.rxFile = cms.untracked.string("rx_summary.txt")
-process.stage1Raw.txFile = cms.untracked.string("tx_summary.txt")
+process.stage1Raw.nFramesLatency   = cms.untracked.vuint32(73)
+process.stage1Raw.rxFile = cms.untracked.string("/afs/cern.ch/work/g/ginnocen/public/FirmwareTestsHI/RXTXfiles/Run2oct2015_1PM_ppdata_highstats/DataEvtInput_cleaned_1.txt")
+process.stage1Raw.txFile = cms.untracked.string("/afs/cern.ch/work/g/ginnocen/public/FirmwareTestsHI/RXTXfiles/Run2oct2015_1PM_ppdata_highstats/DataEvtOutput_cleaned_1.txt")
+
+#process.stage1Raw.rxFile = cms.untracked.string("/afs/cern.ch/work/g/ginnocen/public/FirmwareTestsHI/RXTXfiles/Run2oct2015_1PM_ppdata_highstats/DataEvtInput_1.txt")
+#process.stage1Raw.txFile = cms.untracked.string("/afs/cern.ch/work/g/ginnocen/public/FirmwareTestsHI/RXTXfiles/Run2oct2015_1PM_ppdata_highstats/DataEvtOutput_1.txt")
+
 
 # dump raw data
 process.dumpRaw = cms.EDAnalyzer( 
