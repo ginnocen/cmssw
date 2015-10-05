@@ -34,6 +34,12 @@ options.register('dump',
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.bool,
                  "Print RAW data")
+options.register('RunAnalyzer',
+                 True,
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.bool,
+                 "Run Analyzer Unpacker")
+
 
                  
 options.parseArguments()
@@ -137,6 +143,22 @@ process.path = cms.Path(
     +process.caloStage1Digis
 
 )
+
+if (options.RunAnalyzer):
+   process.TFileService = cms.Service("TFileService",fileName = cms.string("L1UnpackedUnpacker.root"))
+   process.UnpackerResults = cms.EDAnalyzer('l1t::L1UpgradeAnalyzer',
+                                         InputLayer2Collection = cms.InputTag("caloStage1Digis"),
+                                         InputLayer2TauCollection = cms.InputTag("caloStage1Digis:rlxTaus"),
+                                         InputLayer2IsoTauCollection = cms.InputTag("caloStage1Digis:isoTaus"),
+                                         InputLayer2CaloSpareCollection = cms.InputTag("caloStage1Digis:HFRingSums"),
+                                         InputLayer1Collection = cms.InputTag("None"),
+                                         legacyRCTDigis = cms.InputTag("caloStage1Digis"),
+                                         FEDRawCollection = cms.InputTag("rawDataCollector")
+   )
+   process.myanalyzer = cms.Path(
+   process.UnpackerResults
+)
+
 
 process.out = cms.EndPath(
     process.output
