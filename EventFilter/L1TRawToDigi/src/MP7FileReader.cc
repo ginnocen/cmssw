@@ -224,7 +224,7 @@ MP7FileReader::readRows() {
             if (n != data.size()) {
                 std::stringstream ss;
                 ss << "Frame misalignment! (expected " << data.size() << " found " << n;
-                throw std::logic_error(ss.str());
+                //throw std::logic_error(ss.str());
             }
             std::vector<std::string> tokens;
             std::string tmp = what[2].str();
