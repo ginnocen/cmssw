@@ -119,20 +119,23 @@ namespace l1t {
                         res[79] = cjet_unp_Right;  
                         res[81] = fjet_unp_Left;
                         res[83] = fjet_unp_Right;
-                        /*
+                 
                         res[85] = iegamma_unp_Left;
                         res[87] = iegamma_unp_Right;
                         res[89] = niegamma_unp_Left;
                         res[91] = niegamma_unp_Right;
+                               /*
                         res[93] = etsum_unp;
                         res[95] = missetsum_unp;
                         res[97] = calospare_unp;
                         res[99] = misshtsum_unp;
+                          */
+                        
                         res[101] = tau_unp_Left;
                         res[103] = tau_unp_Right;
                         res[105] = isotau_unp_Left;
                         res[107] = isotau_unp_Right;
-                        */
+                    
 
                         for (int m=0;m<36;m++) {
                            res[m*2] = rct_unp;
