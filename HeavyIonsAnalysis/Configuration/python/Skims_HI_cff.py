@@ -56,19 +56,6 @@ SKIMStreamZMM = cms.FilteredStream(
 
 #####################
 
-from HeavyIonsAnalysis.Configuration.HI_RAASkim_cff import *
-HIJet150SkimPath = cms.Path( HIJet150SkimSequence )
-SKIMStreamHIJet150 = cms.FilteredStream(
-	responsible = 'HI PAG',
-	name = 'HIJet150',
-	paths = (HIJet150SkimPath),
-	content = skimContent.outputCommands,
-	selectEvents = cms.untracked.PSet(),
-	dataTier = cms.untracked.string('RAW-RECO')
-)
-
-#####################
-
 from HeavyIonsAnalysis.Configuration.HI_DRAASkim_cff import *
 HItDmeson60Path = cms.Path( HIDmeson60SkimSequence )
 SKIMStreamHIDmeson60 = cms.FilteredStream(
