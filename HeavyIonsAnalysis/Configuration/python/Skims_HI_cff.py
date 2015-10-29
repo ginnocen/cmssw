@@ -66,5 +66,3 @@ SKIMStreamHIDmeson60 = cms.FilteredStream(
 	selectEvents = cms.untracked.PSet(),
 	dataTier = cms.untracked.string('RAW-RECO')
 )
-
-#####################
