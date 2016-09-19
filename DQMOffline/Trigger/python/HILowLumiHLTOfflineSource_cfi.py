@@ -240,7 +240,7 @@ def getHIHFTrigSet():
                 handlerType = cms.string("FromHLT"),
                 partialPathName = cms.string(partialPathNamepp),
                 partialFilterName  = cms.string("HLTktkFilterForDmeson"),
-                dqmhistolabel  = cms.string("hltppDMeson"),
+                dqmhistolabel  = cms.string("hltpPbDMeson"),
                 mainDQMDirname = cms.untracked.string(dirname),
                 singleObjectsPreselection = cms.string("1==1"),
                 singleObjectDrawables =  cms.VPSet(
