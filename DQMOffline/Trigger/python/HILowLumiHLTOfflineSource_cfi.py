@@ -229,10 +229,40 @@ def getFullTrackVPSet():
 
     return ret
 
+
+def getHIHFTrigSet():
+    ret=cms.VPSet()
+    thresholdspp = [5, 8, 15, 30, 50]
+    for t in thresholdspp:
+        partialPathNamepp = "HLT_PADmesonPPTrackingGlobal_Dpt"+str(t)+"_v"
+        hltdpp =  cms.PSet(
+                triggerSelection = cms.string(partialPathNamepp+"*"),
+                handlerType = cms.string("FromHLT"),
+                partialPathName = cms.string(partialPathNamepp),
+                partialFilterName  = cms.string("HLTktkFilterForDmeson"),
+                dqmhistolabel  = cms.string("hltppDMeson"),
+                mainDQMDirname = cms.untracked.string(dirname),
+                singleObjectsPreselection = cms.string("1==1"),
+                singleObjectDrawables =  cms.VPSet(
+                    cms.PSet (name = cms.string("pt"), expression = cms.string("pt"), bins = cms.int32(100), min = cms.double(0), max = cms.double(100)),
+                    cms.PSet (name = cms.string("eta"), expression = cms.string("eta"), bins = cms.int32(100), min = cms.double(-2.5), max = cms.double(2.5)),
+                    cms.PSet (name = cms.string("phi"), expression = cms.string("phi"), bins = cms.int32(100), min = cms.double(-3.15), max = cms.double(3.15))
+                    ),
+                combinedObjectSelection =  cms.string("1==1"),
+                combinedObjectSortCriteria = cms.string("at(0).pt"),
+                combinedObjectDimension = cms.int32(1),
+                combinedObjectDrawables =  cms.VPSet()
+                )
+
+        ret.append(hltdpp)
+    return ret
+
+
 def getHILowLumi():
     ret = cms.VPSet()
     ret.extend(getHILowLumiTriggers())
     ret.extend(getFullTrackVPSet())
+    ret.extend(getHIHFTrigSet())
     return ret
 
 dirname = "HLT/HI/"
